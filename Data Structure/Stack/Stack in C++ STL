@@ -1,0 +1,42 @@
+//
+//  main.cpp
+//  stack in cpp standered library
+//
+//  Created by ramadhar kumar on 22/03/18.
+//  Copyright © 2018 ramadhar. All rights reserved.
+//
+
+#include <iostream>
+#include <stack>
+using namespace std;
+
+void showStack(stack <int> g)
+{
+    stack <int> stt=g;
+    while(!stt.empty())
+    {
+        cout<<'\t'<<stt.top();
+        stt.pop();
+    }
+    cout<<endl;
+}
+
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    stack<int> st;
+    st.push(10);
+    st.push(20);
+    st.push(30);
+    st.push(40);
+    st.push(50);
+    
+    cout<<" Elements of stack are: "<<endl;
+    showStack(st);
+    
+    cout<<"size of stack is: "<<st.size()<<endl;
+    
+    st.pop();
+    st.pop();
+    showStack(st);
+    return 0;
+}
