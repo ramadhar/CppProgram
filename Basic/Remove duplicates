@@ -1,3 +1,40 @@
+//-------------- Using Hash -------------
+#include <iostream>
+using namespace std;
+
+#define ASCII_LIMIT 256
+
+char *removeDuplicates(char *str)
+{
+	int input_index=1;
+	int result_index=1;
+	char result[ASCII_LIMIT]={0};
+	char temp;
+	
+	while(*(str+input_index))
+	{
+		temp=*(str+input_index);
+		if(result[temp]==0)
+		{
+			result[temp]=1;
+			*(str+result_index)=*(str+input_index);
+			result_index++;
+		}
+		input_index++;
+	}
+	*(str+result_index)='\0';
+	return str;
+}
+
+int main() {
+	// your code goes here
+	char str[]="geeksforgeeks";
+	cout<<removeDuplicates(str)<<endl;
+	return 0;
+}
+
+--------- Using Iteration---------------
+
 #include<bits/stdc++.h>
 #include <iostream>
 using namespace std;
