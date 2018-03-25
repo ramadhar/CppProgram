@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+#include <iostream>
+using namespace std;
+
+char *removeDup(char *str)
+{
+	int start=1;
+	int current=1;
+	
+	while(*(str+start))
+	{
+		if(*(str+start)!=*(str+start-1))
+		{
+			*(str+current)=*(str+start);
+			current++;
+		}
+		start++;
+	}
+	*(str+current)='\0';
+	return str;
+}
+
+char *removeDuplicates(char *str)
+{
+	int n=strlen(str);
+	
+	sort(str, str+n);
+	return removeDup(str);
+}
+
+int main() {
+	// your code goes here
+	char str[]="geeksforgeeks";
+	cout<<removeDuplicates(str)<<endl;
+	return 0;
+}
