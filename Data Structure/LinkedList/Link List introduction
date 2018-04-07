@@ -1,0 +1,54 @@
+//
+//  main.cpp
+//  Link List 01
+//
+//  Created by ramadhar kumar on 07/04/18.
+//  Copyright © 2018 ramadhar. All rights reserved.
+//
+
+#include <iostream>
+using namespace std;
+
+struct Node
+{
+    int data;
+    Node *next;
+};
+
+Node *start=NULL;
+
+void printNode(Node *n)
+{
+    Node *temp;
+    temp=n;
+    
+    cout<<temp->data<<" ";
+    while(temp->next!=NULL)
+    {
+        temp=temp->next;
+        cout<<temp->data<<" ";
+    }
+    cout<<endl;
+}
+
+int main()
+{
+    Node *temp=new Node();
+    temp->data= 1;
+    temp->next=NULL;
+    start=temp;
+    
+    Node *second= new Node();
+    second->data=2;
+    second->next=NULL;
+    temp->next=second;
+    
+    Node *third= new Node();
+    third->data=3;
+    third->next=NULL;
+    second->next=third;
+    
+    printNode(start);
+    
+    return 0;
+}
