@@ -1,0 +1,139 @@
+//
+//  main.cpp
+//  Delete a node in linked list
+//
+//  Created by ramadhar kumar on 07/04/18.
+//  Copyright © 2018 ramadhar. All rights reserved.
+//
+
+#include <iostream>
+using namespace std;
+
+struct Node
+{
+    int data;
+    Node* next;
+};
+
+class DeletNode
+{
+public:
+    void appendList(Node** headRef, int data);
+    void deleteFromStart(Node** headref);
+    void deleteFromLast(Node* headref);
+    void deleteAfterNode(Node* headRef, int key);
+    void printNode(Node* headRef);
+};
+
+void DeletNode::appendList(Node** headref, int val)
+{
+    Node* newNode=new Node();
+    newNode->data=val;
+    newNode->next=NULL;
+    
+    Node* last=*headref;
+    if(*headref==NULL)
+    {
+        *headref=newNode;
+        return;
+    }
+    while(last->next!=NULL)
+    {
+        last=last->next;
+    }
+    last->next=newNode;
+}
+
+void DeletNode::deleteFromStart(Node** headRef)
+{
+    Node* temp;
+    
+    if(*headRef==NULL)
+    {
+        cout<<"List is empty"<<endl;
+        return;
+    }
+    
+    temp=*headRef;
+    *headRef=temp->next;
+    free(temp);
+    
+}
+
+void DeletNode::deleteFromLast(Node* headRef)
+{
+    if(headRef==NULL)
+        return;
+    
+    if(headRef->next==NULL)
+    {
+        delete headRef;
+        headRef=NULL;
+    }
+    
+    Node* current=headRef;
+    
+    while(current->next!=NULL && current->next->next!=NULL)
+    {
+        current=current->next;
+    }
+    delete current->next;
+    current->next=NULL;
+}
+
+void DeletNode::deleteAfterNode(Node* headRef, int key)
+{
+    Node* current=headRef;
+    
+    while(current->data!=key)
+    {
+        current=current->next;
+    }
+    delete current->next;
+    current->next=current->next->next;
+}
+
+void DeletNode::printNode(Node* headRef)
+{
+    Node* last=headRef;
+    cout<<headRef->data<<" ";
+    
+    while(last->next!=NULL)
+    {
+        last=last->next;
+        cout<<last->data<<" ";
+    }
+    cout<<endl;
+}
+
+int main()
+{
+    Node* head=NULL;
+    DeletNode dl;
+    
+    dl.appendList(&head, 1);
+    dl.appendList(&head, 2);
+    dl.appendList(&head, 3);
+    dl.appendList(&head, 4);
+    dl.appendList(&head, 5);
+    dl.appendList(&head, 6);
+    dl.appendList(&head, 7);
+    
+    cout<<"Node at first time"<<endl;
+    dl.printNode(head);
+    
+    cout<<"Delete first Node "<<endl;
+    dl.deleteFromStart(&head);
+    dl.printNode(head);
+    
+    cout<<"delete last node"<<endl;
+    dl.deleteFromLast(head);
+    dl.printNode(head);
+    
+    cout<<"Delete after 3 node"<<endl;
+    dl.deleteAfterNode(head, 3);
+    dl.printNode(head);
+    
+    
+    return 0;
+}
