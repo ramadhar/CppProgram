@@ -1,0 +1,151 @@
+//
+//  main.cpp
+//  Insertion Using Single Pointer in link list
+//
+//  Created by ramadhar kumar on 07/04/18.
+//  Copyright © 2018 ramadhar. All rights reserved.
+//
+
+#include <iostream>
+using namespace std;
+
+struct Node
+{
+    int data;
+    Node* next;
+};
+
+Node* head=NULL;
+
+class InsertInList
+{
+public:
+    void append(Node* headref, int val);
+    void insertAtStart(Node* headref, int val);
+    void insertAtEnd(Node* headref, int val);
+    void insertAfterNode(Node* headref, int val, int nodeVal);
+    void printList(Node* headref);
+};
+
+void InsertInList::append(Node* headref, int val)
+{
+    Node* newNode;
+    Node* last=headref;
+    
+    newNode=new Node();
+    newNode->data=val;
+    newNode->next=NULL;
+    
+    if(headref==NULL)
+    {
+        head=newNode;
+        return;
+    }
+    
+    while(last->next!= NULL)
+    {
+        last=last->next;
+    }
+    last->next=newNode;
+    
+}
+
+void InsertInList::insertAtStart(Node* headRef, int val)
+{
+    Node* newNode=new Node();
+    Node* temp;
+    
+    if(headRef==NULL)
+    {
+        cout<<"List is empty"<<endl;
+        newNode->data=val;
+        newNode->next=NULL;
+        head=newNode;
+        return;
+    }
+    temp=headRef;
+    newNode->data=val;
+    newNode->next=temp;
+    head=newNode;
+}
+
+void InsertInList::insertAtEnd(Node* headRef, int val)
+{
+    Node* newNode=new Node();
+    newNode->data=val;
+    newNode->next=NULL;
+    
+    Node* last=headRef;
+    if(headRef==NULL)
+    {
+        head=newNode;
+        return;
+    }
+    
+    while(last->next!=NULL)
+    {
+        last=last->next;
+    }
+    last->next=newNode;
+}
+
+void InsertInList::insertAfterNode(Node* headref, int val, int nodeVal)
+{
+    InsertInList ls;
+    Node* newNode=new Node();
+    Node* temp=headref;
+    
+    while(temp->data!=nodeVal)
+    {
+        temp= temp->next;
+    }
+    if(temp->next==NULL)
+        ls.insertAtEnd(headref,val);
+    
+    if(temp->data==nodeVal)
+    {
+        newNode->data=val;
+        newNode->next=temp->next;
+        temp->next=newNode;
+    }
+}
+
+void InsertInList::printList(Node* headRef)
+{
+    Node* last=headRef;
+    
+    cout<<headRef->data<<" ";
+    while(last->next!=NULL)
+    {
+        last=last->next;
+        cout<<last->data<<" ";
+    }
+    cout<<endl;
+}
+
+int main()
+{
+    InsertInList ls;
+    ls.append(head, 1);
+    ls.append(head, 2);
+    ls.append(head, 3);
+    ls.append(head, 4);
+    ls.append(head, 5);
+    
+    cout<<"My list is: "<<endl;
+    ls.printList(head);
+    
+    cout<<"List after inserting a node at start"<<endl;
+    ls.insertAtStart(head, 0);
+    ls.printList(head);
+    
+    cout<<"After Insert a node at last: "<<endl;
+    ls.insertAtEnd(head, 6);
+    ls.printList(head);
+    
+    cout<<"Insert a node after 4th node"<<endl;
+    ls.insertAfterNode(head, 40, 4);
+    ls.printList(head);
+    
+    return 0;
+}
