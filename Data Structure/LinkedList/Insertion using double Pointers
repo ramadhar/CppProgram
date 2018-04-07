@@ -1,0 +1,132 @@
+#include<iostream>
+using namespace std;
+
+struct Node
+{
+    int data;
+    Node *next;
+};
+
+class insertInList
+{
+public:
+    void append(Node** headref, int data);
+    void inserAtStart(Node** headref, int data);
+    void insertAtLast(Node* headRef, int data);
+    void insertAfter(Node* headref, int nodeVal, int val);
+    void printList(Node* headref);
+};
+
+void insertInList::insertAfter(Node* headRef, int nodeVal, int val)
+{
+    Node* newNode=new Node();
+    newNode->data=val;
+    Node* last=headRef;
+    
+    while(last->data!=nodeVal)
+    {
+        last=last->next;
+    }
+    newNode->next=last->next;
+    last->next=newNode;
+}
+
+void insertInList::append(Node** headref, int val)
+{
+    Node *newNode;
+    Node *last;
+    last=*headref;
+    
+    newNode=new Node();
+    newNode->data=val;
+    newNode->next=NULL;
+    
+    if(*headref==NULL)
+    {
+        *headref=newNode;
+    }
+    
+    else{
+        while(last->next!=NULL)
+        {
+            last=last->next;
+        }
+        last->next=newNode;
+    }
+    
+}
+
+void insertInList::inserAtStart(Node** headref, int val)
+{
+    Node* newNode= new Node();
+    newNode->data=val;
+    
+    Node* temp=*headref;
+    newNode->next=temp;
+    *headref=newNode;
+}
+
+void insertInList::insertAtLast(Node* headref, int val)
+{
+    Node* newNode;
+    newNode= new Node();
+    newNode->data=val;
+    newNode->next=NULL;
+    
+    if(headref==NULL)
+    {
+        headref=newNode;
+        return;
+    }
+    Node* last;
+    last=headref;
+    
+    while(last->next!=NULL)
+    {
+        last=last->next;
+    }
+    last->next=newNode;
+}
+
+void insertInList::printList(Node *headref)
+{
+    
+    Node* temp=headref;
+    cout<<headref->data<<" ";
+    
+    while(temp->next!=NULL)
+    {
+        temp=temp->next;
+        cout<<temp->data<<" ";
+    }
+    cout<<endl;
+}
+
+int main()
+{
+    Node* head=NULL;
+    insertInList lists;
+    
+    lists.append(&head,1);
+    lists.append(&head,2);
+    lists.append(&head,3);
+    lists.append(&head,4);
+    lists.append(&head,5);
+    
+    cout<<"List after creation"<<endl;
+    lists.printList(head);
+    
+    cout<<"List after adding new node at start"<<endl;
+    lists.inserAtStart(&head, 0);
+    lists.printList(head);
+    
+    cout<<"Insert a new Node at last"<<endl;
+    lists.insertAtLast(head, 6);
+    lists.printList(head);
+    
+    cout<<"Insert a node after 3rd node"<<endl;
+    lists.insertAfter(head, 3, 100);
+    lists.printList(head);
+    
+    return 0;
+}
