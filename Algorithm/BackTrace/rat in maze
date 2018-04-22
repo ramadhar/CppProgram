@@ -1,0 +1,88 @@
+//
+//  main.cpp
+//  shortest path in maze
+//
+//  Created by ramadhar kumar on 22/04/18.
+//  Copyright © 2018 ramadhar. All rights reserved.
+//
+
+#include <iostream>
+using namespace std;
+
+#define size 11
+int des;
+
+void init(int visited[size][size], int n)
+{
+    for(int i=0;i<n;i++)
+        for(int j=0;j<n;j++)
+            visited[i][j]=0;
+}
+
+bool isSafe(int x, int y, int maze[size][size], int visited[size][size])
+{
+    return (x>=0 && x<des
+            && y>=0 && y<des
+            && maze[x][y]==1);
+}
+
+bool dfs(int x, int y, int maze[size][size], int visited[size][size])
+{
+    if(x==des-1 && y==des-1)
+    {
+        visited[x][y]=1;
+        return true;
+    }
+    
+    if(isSafe(x,y,maze,visited))
+    {
+        visited[x][y]=1;
+        if(dfs(x+1,y,maze,visited)==true)
+            return true;
+        if(dfs(x,y+1,maze,visited)==true)
+            return true;
+        visited[x][y]=0;
+        return false;
+    }
+    return false;
+}
+
+void printPath(int visited[size][size], int n)
+{
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            cout<<visited[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+}
+
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    int maze[size][size];
+    int visited[size][size];
+    
+    cout<<"Enter size of maze"<<endl;
+    int n;
+    cin>>n;
+    des=n;
+    
+    cout<<"enter maze"<<endl;
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+            cin>>maze[i][j];
+    }
+    
+    init(visited,n);
+    
+    if(dfs(0,0,maze,visited)==true)
+    {
+        cout<<endl;
+        printPath(visited,n);
+    }
+    
+    return 0;
+}
