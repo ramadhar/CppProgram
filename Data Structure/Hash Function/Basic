@@ -1,0 +1,57 @@
+//
+//  main.cpp
+//  Hash fun01
+//
+//  Created by ramadhar kumar on 02/06/18.
+//  Copyright © 2018 ramadhar kumar. All rights reserved.
+//
+
+#include <iostream>
+using namespace std;
+#define MAX 1000
+
+int table[MAX+1][2];
+
+bool searchEle(int num)
+{
+    if(num>=0)
+        return table[num][0];
+    else
+        return table[abs(num)][1];
+}
+
+void insertInputInTable(int arr[], int n)
+{
+    for(int i=0;i<n;i++)
+    {
+        if(arr[i]>=0)
+            table[arr[i]][0]=1;
+        else
+            table[abs(arr[i])][0]=1;
+    }
+}
+
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    int arr[10];
+    cout<<"Enter number is array"<<endl;
+    for(int i=0;i<10;i++)
+    {
+        cin>>arr[i];
+    }
+    insertInputInTable(arr,10);
+    
+    cout<<"enter an element to search in array"<<endl;
+    int n;
+    cin>>n;
+    if(searchEle(n)==true)
+        cout<<"element avaialble"<<endl;
+    else
+        cout<<"element not found"<<endl;
+    return 0;
+}
+
+/*
+ Index Mapping (or Trivial Hashing) with negatives allowed
+ Given a limited range array contains both positive and non positive numbers, i.e., elements are in range from -MAX to +MAX. Our task is to search if some number is present in the array or not in O(1) time.
+ */
